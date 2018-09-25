@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikvision.zh.dao.AdminDao">
+    <select id="login" parameterType="Admin" resultType="Admin">
+      SELECT username,password FROM admin where username=#{userName} and password=#{password}
+    </select>
+</mapper>

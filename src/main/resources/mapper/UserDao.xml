@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hikvision.zh.dao.UserDao">
+    <resultMap id="userResult" type="User">
+        <id property="openid" column="openid" />
+        <result property="phone" column="phone"/>
+        <result property="name" column="name"/>
+        <result property="userState" column="userState"/>
+        <result property="point" column="point"/>
+        <result property="deposit" column="deposit"/>
+    </resultMap>
+    <select id="getAllUsers" resultMap="userResult">
+    SELECT openid,phone,name,userState,point,deposit FROM users
+    </select>
+
+    <insert id="addUser" >
+        INSERT INTO users (phone,name,userstate,point,deposit) VALUES(#{0},#{1},#{2},#{3},#{4})
+    </insert>
+    
+    <select id="searchUsersByName" parameterType="User" resultMap="userResult">
+        select * FROM  users  where name  ~ #{name} or phone ~ #{name}
+    </select>
+    
+    <select id="searchUsersByPhone" parameterType="User" resultMap="userResult">
+        select * FROM users where phone LIKE %#{phone}%
+    </select>
+
+    <select id="searchUsersByOpneId" parameterType="User" resultMap="userResult">
+        select * FROM users where openid LIKE %#{openid}%
+    </select>
+
+    <delete id="deleteUserByOpenid" parameterType="int">
+        DELETE FROM users where openid=#{openid}
+    </delete>
+
+    <update id="updateUser" >
+        UPDATE users set name=#{1},phone=#{2},point=#{3},deposit=#{4},userstate=#{5} where openid=#{0}
+    </update>
+
+
+</mapper>
